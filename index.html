@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Refpi Irmansah | Software Engineer</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Tailwind CSS (via CDN for single-file portability) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Configuration -->
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              slate: {
+                900: "#0f172a",
+                800: "#1e293b",
+                700: "#334155",
+                400: "#94a3b8",
+                200: "#e2e8f0",
+              },
+              teal: {
+                400: "#2dd4bf",
+                500: "#14b8a6",
+                600: "#0d9488",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            backgroundImage: {
+              "grid-pattern":
+                "url(\"data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%231e293b' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E\")",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Custom CSS for Animations & Specific Styling -->
+    <style>
+      :root {
+        /* Variabel default untuk cahaya kursor */
+        --mouse-x: 50vw;
+        --mouse-y: 50vh;
+      }
+
+      body {
+        background-color: #050505;
+        color: #e2e8f0;
+        overflow-x: hidden;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050505;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #334155;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #14b8a6;
+      }
+
+      /* Typing Cursor Animation */
+      .typing-cursor {
+        display: inline-block;
+        width: 3px;
+        background-color: #14b8a6;
+        margin-left: 4px;
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* Reveal on Scroll Animation */
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Gradient Text */
+      .text-gradient {
+        background: linear-gradient(135deg, #2dd4bf 0%, #0ea5e9 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      /* Glowing Effects */
+      .glow-hover {
+        transition: all 0.3s ease;
+      }
+      .glow-hover:hover {
+        box-shadow: 0 0 20px rgba(20, 184, 166, 0.4);
+        border-color: #14b8a6;
+      }
+
+      /* Figma-style Animated Mesh Background */
+      .bg-orb {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(150px);
+        z-index: -2;
+        pointer-events: none;
+        animation: orb-float 20s infinite ease-in-out alternate;
+      }
+      .orb-1 {
+        background-color: rgba(13, 148, 136, 0.35); /* Deep Teal */
+        width: 60vw;
+        height: 60vw;
+        max-width: 600px;
+        max-height: 600px;
+        top: -10%;
+        left: -10%;
+      }
+      .orb-2 {
+        background-color: rgba(30, 58, 138, 0.35); /* Dark Blue */
+        width: 70vw;
+        height: 70vw;
+        max-width: 700px;
+        max-height: 700px;
+        bottom: -20%;
+        right: -10%;
+        animation-duration: 25s;
+        animation-delay: -5s;
+      }
+
+      @keyframes orb-float {
+        0% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(5%, 8%) scale(1.05);
+        }
+        100% {
+          transform: translate(-5%, 5%) scale(0.95);
+        }
+      }
+
+      /* Efek Cahaya Kursor */
+      .cursor-glow {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: -1;
+        background: radial-gradient(
+          900px circle at var(--mouse-x) var(--mouse-y),
+          rgba(20, 184, 166, 0.12),
+          transparent 45%
+        );
+      }
+    </style>
+  </head>
+  <body class="antialiased font-sans relative">
+    <!-- Background Decorative Elements -->
+    <div class="fixed inset-0 bg-[#050505] z-[-3]"></div>
+
+    <!-- Layer Cahaya Kursor Baru -->
+    <div class="cursor-glow"></div>
+
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-5">
+      <div
+        class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center"
+      >
+        <a
+          href="#"
+          class="text-2xl font-bold font-mono text-white tracking-tighter"
+        >
+          <span class="text-teal-500">&lt;</span>Refpi<span
+            class="text-teal-500"
+            >/&gt;</span
+          >
+        </a>
+
+        <!-- Desktop Menu -->
+        <ul class="hidden md:flex space-x-8 text-sm font-medium text-slate-300">
+          <li>
+            <a href="#about" class="hover:text-teal-400 transition-colors"
+              >About</a
+            >
+          </li>
+          <li>
+            <a href="#skills" class="hover:text-teal-400 transition-colors"
+              >Skills</a
+            >
+          </li>
+          <li>
+            <a href="#experience" class="hover:text-teal-400 transition-colors"
+              >Experience</a
+            >
+          </li>
+          <li>
+            <a href="#projects" class="hover:text-teal-400 transition-colors"
+              >Projects</a
+            >
+          </li>
+          <li>
+            <a href="#contact" class="hover:text-teal-400 transition-colors"
+              >Contact</a
+            >
+          </li>
+        </ul>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden text-slate-300 hover:text-white focus:outline-none"
+        >
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Dropdown -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden absolute top-full left-0 w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-800 shadow-xl"
+      >
+        <ul class="flex flex-col px-6 py-4 space-y-4 text-slate-300">
+          <li>
+            <a
+              href="#about"
+              class="block hover:text-teal-400 transition-colors mobile-link"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              href="#skills"
+              class="block hover:text-teal-400 transition-colors mobile-link"
+              >Skills</a
+            >
+          </li>
+          <li>
+            <a
+              href="#experience"
+              class="block hover:text-teal-400 transition-colors mobile-link"
+              >Experience</a
+            >
+          </li>
+          <li>
+            <a
+              href="#projects"
+              class="block hover:text-teal-400 transition-colors mobile-link"
+              >Projects</a
+            >
+          </li>
+          <li>
+            <a
+              href="#contact"
+              class="block hover:text-teal-400 transition-colors mobile-link"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Custom Toast Notification (Replaces alert()) -->
+    <div
+      id="toast"
+      class="fixed bottom-5 right-5 bg-slate-800 border border-teal-500/50 text-slate-200 px-6 py-4 rounded-xl shadow-[0_10px_30px_rgba(20,184,166,0.2)] transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 z-50 flex items-center gap-4"
+    >
+      <div class="bg-teal-500/20 p-3 rounded-full">
+        <i class="fas fa-file-arrow-down text-teal-400 text-xl"></i>
+      </div>
+      <div>
+        <h4 class="font-bold text-white text-sm">Downloading CV...</h4>
+        <p class="text-xs text-slate-400 mt-1">Preparing your document.</p>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="min-h-screen flex items-center pt-20 px-6 md:px-12 max-w-7xl mx-auto"
+    >
+      <div class="grid md:grid-cols-2 gap-12 items-center w-full">
+        <div class="order-2 md:order-1 reveal">
+          <p class="text-teal-400 font-mono mb-4">Hello World, my name is</p>
+          <h1
+            class="text-5xl md:text-7xl font-bold text-white mb-4 tracking-tight leading-tight"
+          >
+            Refpi Irmansah.
+          </h1>
+          <h2
+            class="text-3xl md:text-5xl font-bold text-slate-400 mb-6 h-[60px] md:h-[72px]"
+          >
+            I build <span id="typing-text" class="text-gradient"></span
+            ><span class="typing-cursor">&nbsp;</span>
+          </h2>
+          <p class="text-slate-400 text-lg mb-10 max-w-lg leading-relaxed">
+            A Software Engineer and Backend Developer specializing in building
+            exceptional, scalable, and highly secure digital experiences.
+            Currently focused on data management systems and robust API
+            architectures.
+          </p>
+          <div class="flex gap-4">
+            <button
+              onclick="downloadCV()"
+              class="group relative px-8 py-4 bg-transparent border-2 border-teal-500 text-teal-400 font-mono rounded overflow-hidden transition-all duration-300 hover:bg-teal-500 hover:text-slate-900 hover:shadow-[0_0_20px_rgba(20,184,166,0.4)]"
+            >
+              <span class="relative z-10 flex items-center gap-2 font-semibold">
+                <i class="fas fa-download group-hover:animate-bounce"></i>
+                Download CV
+              </span>
+            </button>
+            <a
+              href="#projects"
+              class="px-8 py-4 bg-slate-800 text-white font-mono rounded hover:bg-slate-700 transition-all duration-300 flex items-center gap-2"
+            >
+              View Work <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="order-1 md:order-2 flex justify-center md:justify-end reveal"
+        >
+          <div class="relative w-64 h-64 md:w-80 md:h-80">
+            <div
+              class="absolute inset-0 bg-teal-500 rounded-xl transform translate-x-4 translate-y-4 opacity-50 border-2 border-teal-400"
+            ></div>
+
+            <!-- RUANG FOTO -->
+            <img
+              src="refpi.jpg"
+              alt="Refpi Irmansah"
+              class="relative z-10 w-full h-full object-cover rounded-xl border-2 border-slate-700 transition-all duration-500"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+      <div class="reveal">
+        <h2 class="text-3xl font-bold text-white mb-8 flex items-center gap-4">
+          <span class="text-teal-500 font-mono text-xl">01.</span> About Me
+          <div class="h-[1px] bg-slate-700 flex-grow max-w-xs"></div>
+        </h2>
+        <div class="grid md:grid-cols-3 gap-12">
+          <div
+            class="md:col-span-2 text-slate-400 text-lg leading-relaxed space-y-6"
+          >
+            <p>
+              Hello! My name is Refpi and I enjoy creating things that live on
+              the internet. My interest in software engineering started back
+              when I realized the power of automation and structured data
+              management.
+            </p>
+            <p>
+              Fast-forward to today, I have the privilege of working deeply in
+              public sector data systems. I bring a strong background in data
+              management and a sharp focus on building robust, scalable backend
+              architectures that handle critical daily operations efficiently.
+            </p>
+            <p>
+              Whether it's writing complex queries, optimizing database
+              performance, or designing clean RESTful APIs, my goal is always to
+              deliver secure and performant solutions.
+            </p>
+          </div>
+          <div
+            class="bg-slate-800/50 p-6 rounded-xl border border-slate-700 hover:border-teal-500/50 transition-colors"
+          >
+            <h3 class="text-white font-semibold mb-4">
+              <i class="fas fa-terminal text-teal-400 mr-2"></i> Quick Info
+            </h3>
+            <ul class="space-y-4 text-sm text-slate-400">
+              <li class="flex justify-between border-b border-slate-700 pb-2">
+                <span>Role</span>
+                <span class="text-white">Backend Developer</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-700 pb-2">
+                <span>Experience</span>
+                <span class="text-white">15+ Years</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-700 pb-2">
+                <span>Location</span>
+                <span class="text-white">Banten, Indonesia</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section
+      id="skills"
+      class="py-24 px-6 md:px-12 max-w-7xl mx-auto bg-slate-900/50"
+    >
+      <div class="reveal">
+        <h2
+          class="text-3xl font-bold text-white mb-12 flex items-center justify-end gap-4 text-right"
+        >
+          <div class="h-[1px] bg-slate-700 flex-grow max-w-xs"></div>
+          <span class="text-teal-500 font-mono text-xl">02.</span> Technical
+          Arsenal
+        </h2>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <!-- Skill Badge -->
+          <div
+            class="glow-hover bg-slate-800 border border-slate-700 rounded-lg p-6 flex flex-col items-center justify-center gap-3 group"
+          >
+            <i
+              class="fa-brands fa-golang text-4xl text-slate-400 group-hover:text-[#00ADD8] transition-colors"
+            ></i>
+            <span class="font-mono text-sm text-slate-300">Golang</span>
+          </div>
+          <div
+            class="glow-hover bg-slate-800 border border-slate-700 rounded-lg p-6 flex flex-col items-center justify-center gap-3 group"
+          >
+            <i
+              class="fa-brands fa-node-js text-4xl text-slate-400 group-hover:text-[#339933] transition-colors"
+            ></i>
+            <span class="font-mono text-sm text-slate-300">Node.js</span>
+          </div>
+          <div
+            class="glow-hover bg-slate-800 border border-slate-700 rounded-lg p-6 flex flex-col items-center justify-center gap-3 group"
+          >
+            <i
+              class="fas fa-server text-4xl text-slate-400 group-hover:text-white transition-colors"
+            ></i>
+            <span class="font-mono text-sm text-slate-300">Express.js</span>
+          </div>
+          <div
+            class="glow-hover bg-slate-800 border border-slate-700 rounded-lg p-6 flex flex-col items-center justify-center gap-3 group"
+          >
+            <i
+              class="fas fa-database text-4xl text-slate-400 group-hover:text-[#336791] transition-colors"
+            ></i>
+            <span class="font-mono text-sm text-slate-300">PostgreSQL</span>
+          </div>
+          <div
+            class="glow-hover bg-slate-800 border border-slate-700 rounded-lg p-6 flex flex-col items-center justify-center gap-3 group"
+          >
+            <i
+              class="fas fa-database text-4xl text-slate-400 group-hover:text-[#4479A1] transition-colors"
+            ></i>
+            <span class="font-mono text-sm text-slate-300">MySQL</span>
+          </div>
+          <div
+            class="glow-hover bg-slate-800 border border-slate-700 rounded-lg p-6 flex flex-col items-center justify-center gap-3 group"
+          >
+            <i
+              class="fab fa-php text-4xl text-slate-400 group-hover:text-[#777BB4] transition-colors"
+            ></i>
+            <span class="font-mono text-sm text-slate-300">CodeIgniter</span>
+          </div>
+          <div
+            class="glow-hover bg-slate-800 border border-slate-700 rounded-lg p-6 flex flex-col items-center justify-center gap-3 group"
+          >
+            <i
+              class="fas fa-network-wired text-4xl text-slate-400 group-hover:text-teal-400 transition-colors"
+            ></i>
+            <span class="font-mono text-sm text-slate-300">REST API</span>
+          </div>
+          <div
+            class="glow-hover bg-slate-800 border border-slate-700 rounded-lg p-6 flex flex-col items-center justify-center gap-3 group"
+          >
+            <i
+              class="fa-brands fa-git-alt text-4xl text-slate-400 group-hover:text-[#F05032] transition-colors"
+            ></i>
+            <span class="font-mono text-sm text-slate-300">Git</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-6 md:px-12 max-w-4xl mx-auto">
+      <div class="reveal">
+        <h2 class="text-3xl font-bold text-white mb-12 flex items-center gap-4">
+          <span class="text-teal-500 font-mono text-xl">03.</span> Experience
+          <div class="h-[1px] bg-slate-700 flex-grow max-w-xs"></div>
+        </h2>
+
+        <div class="relative border-l-2 border-slate-700 ml-3 md:ml-6">
+          <!-- Timeline Item -->
+          <div class="mb-10 ml-8 md:ml-12 group relative">
+            <span
+              class="absolute flex items-center justify-center w-5 h-5 bg-teal-500 rounded-full -left-[43px] md:-left-[59px] ring-8 ring-slate-900 group-hover:scale-125 transition-transform duration-300"
+            ></span>
+            <div
+              class="bg-slate-800/80 p-6 rounded-xl border border-slate-700 shadow-lg glow-hover relative overflow-hidden"
+            >
+              <div class="absolute top-0 left-0 w-1 h-full bg-teal-500"></div>
+              <h3 class="text-xl font-bold text-white mb-1">
+                Data Management & Billing
+              </h3>
+              <h4 class="text-lg font-semibold text-teal-400 mb-2">
+                UPT PPD Samsat Serpong, Bapenda Provinsi Banten
+              </h4>
+              <time class="block mb-4 text-sm font-mono text-slate-400"
+                ><i class="far fa-calendar-alt mr-2"></i>15 Years
+                (Present)</time
+              >
+              <p class="text-slate-300 text-base leading-relaxed">
+                Spearheaded comprehensive data management systems for regional
+                revenue administration. Responsible for maintaining, optimizing,
+                and securing large-scale databases, ensuring high availability
+                for billing operations, and streamlining data workflows that
+                impact public services daily.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+      <div class="reveal">
+        <h2 class="text-3xl font-bold text-white mb-12 flex items-center gap-4">
+          <span class="text-teal-500 font-mono text-xl">04.</span> Featured
+          Projects
+          <div class="h-[1px] bg-slate-700 flex-grow max-w-xs"></div>
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Project 1 -->
+          <div
+            class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group hover:border-teal-500/50 transition-colors"
+          >
+            <div class="relative h-60 overflow-hidden">
+              <div
+                class="absolute inset-0 bg-teal-900/40 group-hover:bg-transparent transition-colors duration-500 z-10"
+              ></div>
+              <img
+                src="https://placehold.co/800x600/1e293b/14b8a6?text=Sistem+Pengarsipan"
+                alt="Sistem Pengarsipan Kepegawaian"
+                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            <div class="p-8">
+              <div class="font-mono text-teal-400 text-sm mb-2">
+                Internal System
+              </div>
+              <h3
+                class="text-2xl font-bold text-white mb-4 hover:text-teal-400 transition-colors cursor-pointer"
+              >
+                Sistem Pengarsipan Kepegawaian
+              </h3>
+              <p class="text-slate-400 mb-6 line-clamp-3">
+                A robust personnel archiving system designed to digitize and
+                organize employee records. Improved document retrieval times and
+                ensured strict data integrity and access control for sensitive
+                HR documents.
+              </p>
+              <div class="flex flex-wrap gap-3 mt-auto">
+                <span
+                  class="px-3 py-1 bg-slate-900 text-slate-300 text-xs font-mono rounded-full border border-slate-700"
+                  >CodeIgniter</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-900 text-slate-300 text-xs font-mono rounded-full border border-slate-700"
+                  >PHP</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-900 text-slate-300 text-xs font-mono rounded-full border border-slate-700"
+                  >MySQL</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div
+            class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700 group hover:border-teal-500/50 transition-colors"
+          >
+            <div class="relative h-60 overflow-hidden">
+              <div
+                class="absolute inset-0 bg-teal-900/40 group-hover:bg-transparent transition-colors duration-500 z-10"
+              ></div>
+              <img
+                src="https://placehold.co/800x600/1e293b/14b8a6?text=Xavier+Dashboard"
+                alt="Xavier Birojasa STNK Dashboard"
+                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            <div class="p-8">
+              <div class="font-mono text-teal-400 text-sm mb-2">
+                Web Application
+              </div>
+              <h3
+                class="text-2xl font-bold text-white mb-4 hover:text-teal-400 transition-colors cursor-pointer"
+              >
+                Xavier Birojasa STNK Dashboard
+              </h3>
+              <p class="text-slate-400 mb-6 line-clamp-3">
+                A comprehensive dashboard for managing vehicle registration
+                services. Features include real-time tracking of document
+                processing, automated billing calculations, and client
+                management via RESTful architecture.
+              </p>
+              <div class="flex flex-wrap gap-3 mt-auto">
+                <span
+                  class="px-3 py-1 bg-slate-900 text-slate-300 text-xs font-mono rounded-full border border-slate-700"
+                  >Node.js</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-900 text-slate-300 text-xs font-mono rounded-full border border-slate-700"
+                  >Express</span
+                >
+                <span
+                  class="px-3 py-1 bg-slate-900 text-slate-300 text-xs font-mono rounded-full border border-slate-700"
+                  >MySQL</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section
+      id="contact"
+      class="py-32 px-6 md:px-12 max-w-3xl mx-auto text-center"
+    >
+      <div class="reveal">
+        <span class="text-teal-500 font-mono text-sm block mb-4"
+          >05. What's Next?</span
+        >
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+          Get In Touch
+        </h2>
+        <p class="text-slate-400 text-lg mb-10">
+          I am currently open to new opportunities, freelance projects, or just
+          a technical discussion. Whether you have a question or just want to
+          say hi, I'll try my best to get back to you!
+        </p>
+        <a
+          href="mailto:hello@refpiirmansah.com"
+          class="inline-block px-8 py-4 bg-transparent border-2 border-teal-500 text-teal-400 font-mono rounded hover:bg-teal-500/10 transition-colors duration-300"
+        >
+          Say Hello
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center border-t border-slate-800">
+      <div class="flex justify-center gap-6 mb-6">
+        <a
+          href="#"
+          class="text-slate-400 hover:text-teal-400 text-xl transition-colors"
+          ><i class="fab fa-github"></i
+        ></a>
+        <a
+          href="#"
+          class="text-slate-400 hover:text-teal-400 text-xl transition-colors"
+          ><i class="fab fa-linkedin-in"></i
+        ></a>
+        <a
+          href="#"
+          class="text-slate-400 hover:text-teal-400 text-xl transition-colors"
+          ><i class="fab fa-twitter"></i
+        ></a>
+      </div>
+      <p class="text-slate-500 font-mono text-sm">
+        Designed & Built by <span class="text-teal-400">Refpi Irmansah</span
+        ><br />
+        &copy; 2024 All rights reserved.
+      </p>
+    </footer>
+
+    <!-- JavaScript Interactivity -->
+    <script>
+      // 1. Mobile Menu Toggle
+      const btn = document.getElementById("mobile-menu-btn");
+      const menu = document.getElementById("mobile-menu");
+      const mobileLinks = document.querySelectorAll(".mobile-link");
+
+      btn.addEventListener("click", () => {
+        menu.classList.toggle("hidden");
+      });
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          menu.classList.add("hidden");
+        });
+      });
+
+      // 2. Sticky Navbar Shadow
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add(
+            "bg-slate-900/90",
+            "backdrop-blur-md",
+            "shadow-lg",
+            "py-4",
+          );
+          navbar.classList.remove("py-5");
+        } else {
+          navbar.classList.remove(
+            "bg-slate-900/90",
+            "backdrop-blur-md",
+            "shadow-lg",
+            "py-4",
+          );
+          navbar.classList.add("py-5");
+        }
+      });
+
+      // 3. Typing Effect
+      const words = [
+        "scalable APIs.",
+        "robust databases.",
+        "backend systems.",
+        "clean code.",
+      ];
+      let wordIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      const typingElement = document.getElementById("typing-text");
+
+      function typeEffect() {
+        const currentWord = words[wordIndex];
+
+        if (isDeleting) {
+          typingElement.textContent = currentWord.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          typingElement.textContent = currentWord.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        let typeSpeed = isDeleting ? 50 : 100;
+
+        if (!isDeleting && charIndex === currentWord.length) {
+          typeSpeed = 2000; // Pause at end of word
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+          typeSpeed = 500; // Pause before new word
+        }
+
+        setTimeout(typeEffect, typeSpeed);
+      }
+
+      // Start typing effect on load
+      window.onload = function () {
+        setTimeout(typeEffect, 1000);
+      };
+
+      // 4. Reveal on Scroll (Intersection Observer)
+      const revealElements = document.querySelectorAll(".reveal");
+
+      const revealCallback = (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+            observer.unobserve(entry.target); // Only animate once
+          }
+        });
+      };
+
+      const revealOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const revealObserver = new IntersectionObserver(
+        revealCallback,
+        revealOptions,
+      );
+      revealElements.forEach((el) => revealObserver.observe(el));
+
+      // 5. Custom Download CV Notification (No Alert used)
+      function downloadCV() {
+        const toast = document.getElementById("toast");
+
+        // Show toast
+        toast.classList.remove(
+          "opacity-0",
+          "translate-y-20",
+          "pointer-events-none",
+        );
+        toast.classList.add("opacity-100", "translate-y-0");
+
+        // Simulate file download delay, then hide toast
+        setTimeout(() => {
+          toast.classList.remove("opacity-100", "translate-y-0");
+          toast.classList.add(
+            "opacity-0",
+            "translate-y-20",
+            "pointer-events-none",
+          );
+        }, 3000);
+      }
+
+      // 6. Efek Cahaya Kursor Mengikuti Mouse (Spotlight Effect)
+      window.addEventListener("mousemove", (e) => {
+        document.documentElement.style.setProperty(
+          "--mouse-x",
+          `${e.clientX}px`,
+        );
+        document.documentElement.style.setProperty(
+          "--mouse-y",
+          `${e.clientY}px`,
+        );
+      });
+    </script>
+  </body>
+</html>
